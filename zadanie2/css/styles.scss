@@ -1,0 +1,44 @@
+body {
+    font: 16px Calibri, sans-serif;
+}
+
+.buttonsBar {
+    padding: 0px 20px 0px 20px;
+}
+
+.quotesContainer {
+    display: table;
+    padding: 10px 10px 10px 10px;
+}
+
+.quote {
+    display: table-row;
+    padding: 10px 10px 10px 10px;
+}
+
+.quote:nth-child(even) {
+    background-color: grey;
+}
+
+.label {
+    display: table-cell;
+}
+
+.input {
+    display: table-cell;
+    margin: 10px;
+}
+
+.input:disabled {
+    background: transparent;
+    color: black;
+    border: 0px;
+}
+
+.input::placeholder {
+    color: black;
+}
+
+.bordered {
+    border: 2px solid black;
+}

@@ -1,0 +1,103 @@
+$default-font-size: 16px;
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-size: $default-font-size;
+}
+
+%box {
+    float: left;
+    width: 33.33%;
+    padding: 20px;
+    text-align: center;
+}
+
+.box1 {
+    @extend %box;
+}
+
+.box2 {
+    @extend %box;
+}
+
+.boxContainer:after {
+    content: "";
+    display: table;
+    clear: both;
+    margin-bottom: 100px;
+}
+
+@media screen and (max-width: 1024px) {
+    .box1 {
+        width: 100%;
+    }
+    .box2 {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .box1 {
+        width: 100%;
+    }
+    .box2 {
+        width: 100%;
+    }
+}
+
+.footer {
+    height: 100px;
+    text-align: center;
+    background-color: rgb(101, 160, 121);
+    padding-top: 5px;
+}
+
+.push {
+    height: 100px;
+}
+
+.boxContainer {
+    min-height: 90%;
+    padding: 20px 20px 20px 20px;
+    margin-bottom: -100px;
+}
+
+.header {
+    height: 10%;
+    padding-left: 40px;
+    padding-top: 40px;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: $default-font-size * 2;
+    margin: 0;
+}
+
+h2 {
+    font-size: $default-font-size * 1.5;
+}
+
+.innerBox {
+    border: 2px solid black;
+    background-color: rgb(101, 160, 121);
+}
+
+.titleContainer {
+    height: 50px;
+    width: 100%;
+}
+
+.title {
+    height: 50px;
+    width: 200px;
+    float: right;
+    background-color: orangered;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
