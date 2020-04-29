@@ -16,14 +16,23 @@ export default class Main extends Component {
         super(props);
 
         let file = require('./mock.json');
+        let data = this.withUniqueIds(file.file);
         this.state = {
             newVisible: false,
-            data: file.file,
+            data: data,
             searchText: '',
-            filteredData: file.file,
+            filteredData: data,
             sortMode: 'name',
         };
 
+    }
+
+    withUniqueIds(data) {
+        for (let i = 0; i < data.length; i++) {
+            data[i].id = data[i].name + (new Date()).getTime().toString() + i.toString();
+        }
+
+        return data;
     }
 
     onNewRowVisibilityChange() {
@@ -31,6 +40,8 @@ export default class Main extends Component {
     }
 
     onAdd(row) {
+        row.id = row.name + (new Date()).getTime().toString();
+
         let data = this.state.data;
         data.push(row);
         this.setState({ data, filteredData: data });
@@ -39,13 +50,13 @@ export default class Main extends Component {
 
     onDelete(id) {
         let data = this.state.data;
-        delete data[id];
+        data = data.filter(element => element.id != id);
         this.setState({ data, filteredData: data });
     }
 
-    onRatingChange(index, rating) {
+    onRatingChange(id, rating) {
         let rows = this.state.data;
-        rows[index].rating = rating;
+        rows.find(element => element.id == id).rating = rating;
         this.setState({ data: rows });
     }
 

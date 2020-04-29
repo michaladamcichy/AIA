@@ -26,16 +26,18 @@ export default class Table extends Component {
             <hr />
             {this.props.newVisible && <NewRow onAdd={row => this.props.onAdd(row)} />}
             {this.props.data &&
-                this.props.data.map((row, index) => < Row
-                    key={index}
-                    id={index}
-                    name={row.name}
-                    description={row.description}
-                    image={row.image}
-                    rating={row.rating}
-                    onRatingChange={(index, rating) => this.props.onRatingChange(index, rating)}
-                    onDelete={id => this.props.onDelete(id)}
-                />)
+                this.props.data.map((row) =>
+                    < Row
+                        key={row.id}
+                        id={row.id}
+                        name={row.name}
+                        description={row.description}
+                        image={row.image}
+                        rating={row.rating}
+                        onRatingChange={(index, rating) => this.props.onRatingChange(index, rating)}
+                        onDelete={id => this.props.onDelete(id)}
+                    />
+                )
             }
         </div>
     }

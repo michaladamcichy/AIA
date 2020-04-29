@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import StyleSheet from 'react';
+
 
 const styles = {
     row: {
