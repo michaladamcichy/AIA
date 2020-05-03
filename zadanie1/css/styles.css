@@ -23,6 +23,15 @@ body {
   margin-bottom: 100px;
 }
 
+#hamburger {
+  height: 50px;
+  margin-right: 40px;
+  position: absolute;
+  right: 0;
+  margin-right: 40px;
+  display: none;
+}
+
 @media screen and (max-width: 1024px) {
   .box1 {
     width: 100%;
@@ -30,6 +39,14 @@ body {
 
   .box2 {
     width: 50%;
+  }
+
+  #hamburger {
+    display: inline;
+  }
+
+  .navbar {
+    display: none !important;
   }
 }
 @media screen and (max-width: 600px) {
@@ -40,12 +57,20 @@ body {
   .box2 {
     width: 100%;
   }
+
+  #pageTitle {
+    display: none;
+  }
 }
 .footer {
+  border: 2px solid black;
   height: 100px;
   text-align: center;
   background-color: #65a079;
   padding-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .push {
@@ -63,6 +88,14 @@ body {
   padding-left: 40px;
   padding-top: 40px;
   padding-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.image {
+  height: 100%;
+  margin-right: 20px;
 }
 
 h1 {
@@ -77,20 +110,46 @@ h2 {
 .innerBox {
   border: 2px solid black;
   background-color: #65a079;
+  padding-bottom: 40px;
 }
 
 .titleContainer {
   height: 50px;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   width: 200px;
   float: right;
   background-color: orangered;
   border-left: 2px solid black;
   border-bottom: 2px solid black;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  margin-right: 40px;
+}
+
+.navbarItem {
+  margin: 0 10px 0 10px;
+}
+
+.navbarItem p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.footerContent p {
+  margin: 5px;
 }
 
 /*# sourceMappingURL=styles.css.map */
