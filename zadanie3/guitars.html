@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+
+    <script type="text/javascript">
+        function updateList(json) {
+            console.log(json);
+            json.Guitars.Guitar.forEach(element => {
+                $('#list').append('<li>' + element.Brand + ' ' + element.Model + '</li>');
+            });
+        }
+
+        function getJson() {
+            //STACKOVERFLOW
+            // read text from URL location
+            var request = new XMLHttpRequest();
+            request.open('GET', 'http://127.0.0.1:80/guitars.json', true);
+            request.send(null);
+            request.onreadystatechange = function () {
+                if (request.readyState === 4 && request.status === 200) {
+                    let text = request.responseText;
+                    let json = JSON.parse(text);
+                    updateList(json);
+                }
+            }
+        }
+
+        function getByPromise(url) {
+            return new Promise((resolve, reject) => {
+                var request = new XMLHttpRequest();
+                request.open('GET', url, true);
+                request.onload = () => {
+                    if (request.status === 200) {
+                        let text = request.response;
+                        resolve(text);
+                    } else {
+                        reject(request.statusText);
+                    }
+                }
+                request.onerror = () => reject(request.statusText);
+                request.send(null);
+            });
+        }
+
+        $(function () {
+            let url = 'http://127.0.0.1:80/guitars.json';
+            getByPromise(url).then(text => console.log(text))
+                .catch(error => console.log(error));
+            $('#loadButton').click(() => {
+                getJson();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button id="loadButton">Load :)</button>
+    <ol id="list">
+    </ol>
+</body>
+
+</html>
