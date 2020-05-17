@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        if ('<%= status %>') {
+            let status = '<%= status %>';
+            if (status == 'success') {
+                alert('Purchase successful!');
+                location.href = '/cart';
+            } else {
+                alert('Purchase failed! Your cart is outdated.');
+                location.href = '/cart';
+            }
+        }
+
+        function removeFromCart(id) {
+            fetch('/removeFromCart/' + id, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            }).then(response => response.json()).then(json => {
+                (json);
+                location.reload();
+            });
+        }
+
+        function purchase() {
+            ('sending purchase request');
+            fetch('/purchase', {
+                method: 'POST',
+            }).then(response => {
+                (response);
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+            }).catch(error => {
+                (error);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Cart</h1>
+    <hr />
+    <ol class="table">
+        <li class="row" style="font-weight: bold;">
+            <p class="col">Index</p>
+            <p class="col">Name</p>
+            <p class="col">Quantity</p>
+            <p class="col"></p>
+        </li>
+        <% for(let i=0; i < products.length; i++) { %>
+        <li class="row">
+            <p class="col"><%= products[i].id %></p>
+            <p class="col"><%= products[i].name %></p>
+            <p class="col"><%= products[i].count %></p>
+
+            <%if (products[i].count > 0) { %>
+            <button class="col btn btn-warning"
+                onclick="removeFromCart(<%= products[i].id %>, '<%= products[i].name %>')">Remove</button>
+            <% } %>
+        </li>
+        <% } %>
+    </ol>
+    <%if (products.length > 0) { %>
+    <button class="btn btn-success" onclick="purchase()">Purchase</button>
+    <% } %>
+    <button class="btn btn-warning" onclick="window.location.href='/products'">
+        Go back
+    </button>
+</body>
+
+</html>

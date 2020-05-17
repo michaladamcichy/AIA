@@ -1,17 +1,20 @@
 const Express = require('express');
 const BodyParser = require('body-parser');
+const ejs = require('ejs');
 const pino = require('express-pino-logger')();
+const Session = require('express-session');
+const CookieParser = require('cookie-parser');
 
 const app = Express();
-app.use(BodyParser.urlencoded({ extended: false }));
+app.use(BodyParser.urlencoded({ extended: true }));
+app.use(BodyParser.json());
 app.use(pino);
+app.use(CookieParser());
+app.use(Session({ secret: 'secret' }));
 
-app.get('/api/greeting', (req, res) => {
-    const name = req.query.name || 'World';
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
-});
+const routing = require('./routing');
+app.use('/', routing);
 
 app.listen(3001, () =>
-    console.log('Express server is running on localhost:3001')
+    ('Express server is running on localhost:3001')
 );

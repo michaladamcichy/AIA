@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript">
+        if ('<%= status %>') {
+            let status = '<%= status %>';
+
+            if (status == 'success') {
+                alert('Purchase successful!');
+                location.href = '/products';
+            } else {
+                alert('Error');
+                location.href = '/products';
+            }
+        }
+
+        function addToCart(id, name) {
+            fetch('/addToCart/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                }),
+            }).then(response => response.json()).then(json => {
+                (json);
+                alert('Added!');
+                location.reload();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Products</h1>
+    <hr />
+    <ol class="table">
+        <li class="row" style="font-weight: bold;">
+            <p class="col">Index</p>
+            <p class="col">Name</p>
+            <p class="col">Available Quantity</p>
+            <p class="col"></p>
+        </li>
+        <% for(let i=0; i < products.length; i++) { %>
+        <li class="row">
+            <p class="col"><%= products[i].id %></p>
+            <p class="col"><%= products[i].name %></p>
+            <p class="col"><%= products[i].count %></p>
+
+            <%if (products[i].count > 0) { %>
+            <button class="col btn btn-warning"
+                onclick="addToCart(<%= products[i].id %>, '<%= products[i].name %>')">Add to
+                cart</button>
+            <% } else { %>
+            <p class="col"></p>
+            <% } %>
+        </li>
+        <% } %>
+    </ol>
+    <button class="btn btn-success" onclick="window.location.href='/cart'">
+        Go to cart
+    </button>
+</body>
+
+</html>
