@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    @{ 
+
+        if(Session["rules"] == null)
+        {
+            Session["rules"] = new System.Collections.ArrayList();
+        }
+
+        if (Request["rule"] != null)
+        {
+            ((System.Collections.ArrayList)Session["rules"]).Add(Request["rule"]);
+        }
+
+
+        var rules = (System.Collections.ArrayList) Session["rules"];
+
+    }
+
+    <script>
+        function handleClick(rule) {
+            console.log('click');
+            fetch(`/Rules.cshtml?rule=${rule}`, { method: 'post' }).then(response => response.text())
+                .then(html => {
+                    console.log(html);
+                    location.reload();
+                });
+        }
+    </script>
+</head>
+<body>
+    <ol>
+        @for (int i = 0; i < rules.Count; i++)
+        {
+            <li> <p> @rules[i] </p> </li>
+        }
+    </ol>
+    <input id="input"></input>
+    <button onclick="handleClick(document.getElementById('input').value)"> Add </button>
+</body>
+</html>

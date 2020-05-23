@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        function handleClick(name) {
+            console.log('click');
+            fetch(`/Name.cshtml?name=${name}`, {method: 'post'}).then(response => response.text())
+                .then(html => {
+                    console.log(html);
+                });
+        }
+    </script>
+</head>
+<body>
+<input id="input"></input>
+<button onclick="handleClick(document.getElementById('input').value)">Send</button>
+</body>
+</html>
